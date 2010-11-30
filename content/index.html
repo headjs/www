@@ -3,21 +3,11 @@
 
 {%hyde  
  title: 'Head JS :: The only script in your HEAD'
- description: The HEAD section is absolutely the worst place to load and execute scripts. The more and the bigger the worse it gets. Stop that. head.js is all you need.
+ description: The HEAD section is absolutely the worst place to load and execute scripts. The more and the bigger the worse it gets. Stop that. Head JS is all you need.
  keywords: labjs, modernizr, parallel script load, javascript loader, non-blocking javascript 
 %}
 
 {% block hero %}
-<div id="hero">
-   <h1>HEAD<em>JS</em></h1>
-   
-   <h2>The only script in your <code>&lt;HEAD&gt;</code></h2>
-   
-   <p>
-      A tiny <strong>1.95 kb</strong> script makes your pages <strong>faster</strong>, 
-      <strong>simpler</strong> and <strong>modern</strong>. It changes your way you write JavaScript and CSS.
-   </p>  
-</div>
 
 <nav>
 	<a href="#highlights">highlights</a>
@@ -26,6 +16,20 @@
 	<a href="#api">api</a>
 	<a href="#download">download</a>
 </nav>
+
+<div id="hero">
+   <h1>HEAD<em>JS</em></h1>
+   
+   <h2>The only script in your &lt;HEAD&gt;</h2>
+   
+   <h3>A 1.95 kb script that speeds up, simplifies and modernizes your site</h3>
+
+	<p>
+		The HEAD section is the worst place to load scripts. It's painfully slow. The more and the bigger the worse it gets. Move the scrips to the bottom of the page and you cannot use HTML5 and CSS3 safely. Enter Head JS. The single best solution to this universal problem. <a href="#theory">more theory &raquo;</a>
+	</p>
+   
+</div>
+
 {% endblock %}
 
 {% block content %}
@@ -34,10 +38,9 @@
 <section id="highlights">
 ## JavaScript loader
 
-The HEAD section is absolutely the worst place to use SCRIPT SRC tags. The more and the bigger the worse it gets. Stop that. Include only Head JS and load the rest with it.
+Load scripts in parallel but execute in order
 
 {% syntax js %}
-// load these scripts in parallel but execute them in order
 head.js("/path/to/jquery.js", "/google/analytics.js", "/js/site.js", function() {
    
    // all done
@@ -52,14 +55,16 @@ Head JS loads scripts in parallel *without blocking* the page. The performance w
 You've read the books and placed SCRIPT SRC tags on the bottom of the page. Rather nice. But can you do this?
 
 {% syntax js %}
-// use jQuery in the middle of the page
+// use jQuery on the body of the page even though it is not included yet
 head.js(function() {
    $("#my").jquery_plugin();
 });
 
-// but load jQuery after that
+// load jQuery on bottom of the page
 head.js("/path/to/jquery.js");  
 {% endsyntax %}
+
+A typical problem in templating systems or in pages with separate header/footer files. 
 
 ## CSS modernizer
 
@@ -72,7 +77,8 @@ HeadJS adds classes to the HTML root element so that you can do this
 }
 {% endsyntax %}
 
-CSS must be included on top of the page before the page is rendered. Same goes to CSS "modernization". HeadJS focuses on *CSS3 styling* and you can add more tests as needed. Minimalism is a must. It's your HEAD again. 
+HeadJS focuses on *CSS3 styling* properties and you can add more tests if you want. Minimalism is a must. It's your HEAD again. 
+ 
 
 ## HTML5 enabler
 
@@ -110,19 +116,22 @@ Note that if you resize the browser window your CSS rules will be dynamically ap
    
 Style for various application states
    
-{% syntax css %}
+{% syntax html %}
+<script>
 /* test if user is logged in by cheking out an existence of a cookie */
 head.feature("logged", head.cookie("auth_token"));
+</script>
 
+<style>
 /* .. and write CSS accordingly */
 .logged #login-box { display: none; }
-
-/* perform logout and the UI will follow */
-head.feature("logged", false);
+</style>
 {% endsyntax %}
 
+<p>
+	Whenever you call `head.feature()` the CSS will dynamically reflect the chanegs. The `feature()` method needs to be called inside youre HEAD before the stylesheets are applied
+</p>	
 
-`feature()` method needs to be called before the stylesheets are applied. That is: in HEAD. `head.cookie()` is included as a convenience since the application state is commonly stored in a cookie.
    
 ## CSS router
 
@@ -153,9 +162,10 @@ It's generally wiser to use feature detection but we all know IE: it's a feature
    
 ## JavaScript feature detection
 
-Every feature is also contained on the `head` global variable.
+Every feature is also contained on the `headjs` global variable.
    
-{% syntax js %}if (Head JS.logged) {
+{% syntax js %}
+if (headjs.logged) {
    // do things
 }
 {% endsyntax %}
@@ -185,7 +195,6 @@ Here is what you can see at apple.com:
 {% endsyntax %}
 
 When entering the page you'll wait for all these scripts to be loaded before the rest of the page is rendered. In programming this is called *blocking*.
-
 
 The situation can get even worse. Older browsers such as Firefox 3.5 load these scripts in sequence. The next script starts loading only after the previous script is fully loaded. The first impression will be awfully slow.
 
