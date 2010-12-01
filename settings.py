@@ -43,7 +43,7 @@ APPEND_SLASH = False
  	
 
 CONTEXT = {
-	'analytics'	: "",
+	'analytics'	: "UA-20001309-1",
 	'version'	: "v0.1.0"
 }
 

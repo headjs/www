@@ -4,7 +4,7 @@
 {%hyde  
  title: 'Head JS :: The only script in your HEAD'
  description: The HEAD section is absolutely the worst place to load and execute scripts. The more and the bigger the worse it gets. Stop that. Head JS is all you need.
- keywords: labjs, modernizr, parallel script load, javascript loader, non-blocking javascript 
+ keywords: labjs, modernizr, parallel script loading, javascript loader, non-blocking javascript, javascript modernizer
 %}
 
 {% block hero %}
@@ -22,10 +22,10 @@
    
    <h2>The only script in your &lt;HEAD&gt;</h2>
    
-   <h3>A 1.95 kb script that speeds up, simplifies and modernizes your site</h3>
+   <h3>A 2.30 kb script that speeds up, simplifies and modernizes your site</h3>
 
 	<p>
-		The HEAD section is the worst place to load scripts. It's painfully slow. The more and the bigger the worse it gets. Move the scrips to the bottom of the page and you cannot use HTML5 and CSS3 safely. Enter Head JS. The single best solution to this universal problem. <a href="#theory">more theory &raquo;</a>
+		The HEAD section is the worst place to load scripts. It's painfully slow. The more and the bigger the worse it gets. Move the scrips to the end of the page and you cannot use HTML5 and CSS3 safely or you run into dependency problems. Enter Head JS. The single best solution to this universal problem. <a href="#theory">more theory &raquo;</a>
 	</p>
    
 </div>
@@ -52,11 +52,11 @@ Head JS loads scripts in parallel *without blocking* the page. The performance w
 
 ## JavaScript organizer
 
-You've read the books and placed SCRIPT SRC tags on the bottom of the page. Rather nice. But can you do this?
+You've read the books and placed SCRIPT SRC tags on the bottom. Good. But can you do this?
 
 {% syntax js %}
 // use jQuery on the body of the page even though it is not included yet
-head.js(function() {
+head.ready(function() {
    $("#my").jquery_plugin();
 });
 
@@ -77,7 +77,7 @@ HeadJS adds classes to the HTML root element so that you can do this
 }
 {% endsyntax %}
 
-HeadJS focuses on *CSS3 styling* properties and you can add more tests if you want. Minimalism is a must. It's your HEAD again. 
+The focus is on *CSS3 styling* and it's easy to add more tests. Minimalism is a must. It's your HEAD again. 
  
 
 ## HTML5 enabler
@@ -99,7 +99,8 @@ DIV is good but HeadJS let's you be semantic and futuristic
 
 ## Screen size detector 
 
-Design stunning looks for 1980px wide screen and make it also work on 10" laptops and mobile phones. Screen size is the single most important thing when developing mobile sites.
+Design stunning looks for __1980px__ screen and make it also work on __10"__ laptops and mobile phones. 
+Screen size is the single most important thing when developing mobile sites.
 
 {% syntax css %}
 /* screen size less than 1024 pixels */
@@ -109,7 +110,7 @@ Design stunning looks for 1980px wide screen and make it also work on 10" laptop
 .lt-640 #hero { background-image:(small.jpg); }
 {% endsyntax %}
 
-Note that if you resize the browser window your CSS rules will be dynamically applied. Delivered to you by HeadJS.
+If you resize the browser window your CSS rules will dynamically follow. Head JS does it behind the scenes.
    
    
 ## Dynamic CSS
@@ -119,7 +120,7 @@ Style for various application states
 {% syntax html %}
 <script>
 /* test if user is logged in by cheking out an existence of a cookie */
-head.feature("logged", head.cookie("auth_token"));
+head.feature("logged", get_cookie("auth_token"));
 </script>
 
 <style>
@@ -129,7 +130,7 @@ head.feature("logged", head.cookie("auth_token"));
 {% endsyntax %}
 
 <p>
-	Whenever you call `head.feature()` the CSS will dynamically reflect the chanegs. The `feature()` method needs to be called inside youre HEAD before the stylesheets are applied
+	Whenever you call `head.feature()` your CSS rules will follow. 
 </p>	
 
    
@@ -158,11 +159,11 @@ All browsers and versions are detected but this is mostly for making IE behave w
 .ie6 ul  { list-style: none; }
 {% endsyntax %}
 
-It's generally wiser to use feature detection but we all know IE: it's a feature itself.
+It's generally wiser to use feature detection but we all know IE: it's a feature in itself.
    
 ## JavaScript feature detection
 
-Every feature is also contained on the `headjs` global variable.
+Every feature can be found on a `headjs` global JavaScript variable.
    
 {% syntax js %}
 if (headjs.logged) {
@@ -207,15 +208,15 @@ When all scripts are included on the bottom of the page you'll end up fighting w
 
 ### 1. HTML5 and CSS3 cannot be used
 
-If you are using the great new CSS3 features or the new HTML5 tags you soon realize that the pages look bad on all versions of Internet Explorer. HeadJS provides powerful helper classes for CSS to take care of these cross browser issues. If you load the script on bottom of the page you'll experience a FOUC (Flash of Unstyled Content) effect: the page is first rendered without the special CSS classes and then again re-rendered when the script get's loaded. The same goes to the unique HeadJS features: screen size detection, CSS routing and Dynamic CSS. To avoid this ugly FOUC effect you need to load the script on top.
+The latest CSS3 features and the new HTML5 tags do not work on IE. HeadJS provides helper CSS classes to take care of these cross browser issues. But if you load Head JS on bottom of the page you'll experience a FOUC (Flash of Unstyled Content) effect: the page is first rendered without the helper classes and then re-rendered when the script is loaded. The same goes to screen size detection, CSS routing and Dynamic CSS. To avoid this ugly FOUC effect you need to load the script on top.
 
 ### 2. JavaScript organization get's hard
 
-When the scripts are included on bottom you cannot do scripting that depend on these scripts *before* they are included. This is a very common issue on server side templating environments or with setups with separate header/footer files where you typically work inside the middle section. You cannot execute any JavaScript that depend on the scripts that are included on the bottom. 
+When the scripts are included on bottom you cannot do scripting that depend on these scripts *before* they are included. This is a common issue on server side template systems or with separate header/footer files where you typically work inside the middle section. You cannot execute any JavaScript that depend on the scripts that are included on the bottom. 
 
 ## The solution
 
-The single best solution to this universal problem is to include Head JS on top of the page and load rest 
+The single best solution to these universal problems is to include Head JS on top of the page and load rest 
 of the scripts with it. Make it the only SCRIPT SRC in your HEAD. A small job with following benefits
 
 > 1. the page continues right after the small 2kb _head.min.js_ file is loaded
@@ -224,7 +225,7 @@ of the scripts with it. Make it the only SCRIPT SRC in your HEAD. A small job wi
 > 4. you can define JavaScript code on the middle of the page that depend on the scripts on the bottom
 > 5. you'll have a fast, parallel and non-blocking script loader at your disposal
 
-In addtion to that you can
+In addition to that you can
 
 * target CSS for specific screen widths, browsers and paths
 * style your pages differently depending on the application state, such as whether user is logged or not
@@ -236,10 +237,10 @@ In addtion to that you can
 <section id="usage">
 ## Script loading and execution
 
-All script and execution is done with a `head.js()` method 
+All script loading is done with `head.js()` 
 
 {% syntax js %}
-// the most simple case. load a single script without blocking. 
+// the most simple case. load and execute single script without blocking. 
 head.js("/path/to/file.js");
 
 // load a script and execute a function after it has been loaded
@@ -283,7 +284,7 @@ head.ready("file2.js", function() {
 });
 {% endsyntax %}
 
-This makes sense if you have large script files and want some functions to be executed before they are all loaded.
+This makes sense if you have large script files and want to execute JavaScript before all files are loaded.
 Otherwise you simply use `head.ready()` which gets executed after all files are loaded.
 
 {% syntax js %}
@@ -295,7 +296,7 @@ head(function() {
 
 ## Labeling scripts
 
-By assigning labels developers need not to know the actual file paths.
+By assigning labels the content developers need not to know the actual file paths.
 
 {% syntax js %}
 // call a function immediately after jQuery Tools is loaded
@@ -311,12 +312,14 @@ head.js(
    {jquery: "http://http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"},
    {tools:  "http://cnd.jquerytools.org/1.2.5/tiny/jquery.tools.min"},
    {heavy:   "http://a.heavy.library/we/dont/want/to/wait/for.js"},
+
+   // label is not required for all files	
    "http://can.be.mixed/with/unlabeled/files.js"
 );
 {% endsyntax %}
 
 {% comment %}
-if your application is really complex you may need to nest the calls giving you a total control for loading
+On complex applications you can nest the calls for total loading control
 
 {% syntax js %}
 head.js("file1.js", function() {
@@ -344,12 +347,12 @@ When a feature is not supported the class name is prefixed with <code>no-</code>
 }
 {% endsyntax %}
 
-Typically you assume that a feature exists and code your CSS accordingly and you later add
-support for older browsers with the aid of "no-" classses.
+On everyday CSS work you assume that a feature exists and code your CSS accordingly and you later add
+support for older browsers with the aid of "no-" classes.
 
 ### CSS3 property list
 
-Build in CSS3 properties that are detected 
+Natively detected CSS3 properties
 
 - [borderimage](http://www.css3.info/preview/border-image/) define an image to be used instead of the normal border of an element
 - [borderradius](http://www.css3.info/preview/border-radius/) support for rounded borders
@@ -362,7 +365,7 @@ Build in CSS3 properties that are detected
 - [transforms](rotate or skew boxes) ability to scale
 - [transitions](https://developer.mozilla.org/en/CSS/CSS_transitions) ability to animate changes to CSS properties
 
-You can detect more features with `head.feature()` call. Here we detect the HTML5 video support
+You can detect more with `head.feature()` call. Here we detect HTML5 video support
 
 {% syntax js %}
 head.feature("video", function() {
@@ -371,7 +374,7 @@ head.feature("video", function() {
 });
 {% endsyntax %}
 
-[Modernizr](https://github.com/Modernizr/Modernizr/blob/master/modernizr.js) source code is a good source of tests. The preferred way is to concatenate the test inside the `head.min.js` file.
+[Modernizr](https://github.com/Modernizr/Modernizr/blob/master/modernizr.js) is a good source of tests. It's preferred to append the tests inside `head.min.js` file.
 
 ## Screen size detection
 
@@ -385,9 +388,9 @@ Target CSS for various screen sizes. For example
 .lt-640 #hero { background-image:(small.jpg); }
 {% endsyntax %}
 
-Today most sites are optimized for 1024 pixels but with HeadJS you can safely optimize for larger screen sizes.
-You start by designing your site to the largest allowed size and then add CSS for smaller screens. You can freely
-decide the sizes you optimize and the amount of them. HeadJS provdes helper classes for following screen sizes:
+Today most sites are optimized for **1024px** but with Head JS you can safely optimize for larger screens.
+Start by designing to the largest screen and then add CSS rules for smaller ones. You can freely
+decide the sizes you optimize for and the amount of them. By default Head JS watches following screen widths:
 
 **320, 480, 640, 768, 800, 1024, 1280, 1440, 1680, 1920**
 
@@ -431,7 +434,7 @@ Here are class names for various browsers independent of the version number
 You also get a class name that is a combination of the browser vendor and version 
 such as `firefox36` representing all versions Firefox 3.6.X branch.
 
-IE is a special case because more often than a lot you end up making hacks and tweaks specifically for Internet Explorer.  You get "less than" helper classes for versions 3 - 10. For example:
+More often than a lot you end up making hacks and tweaks specifically for Internet Explorer. You'll have "less than" helper classes for versions 3 - 10. For example:
 
 {% syntax css %}
 // tweak CSS for IE versions 5 and below
@@ -440,13 +443,11 @@ IE is a special case because more often than a lot you end up making hacks and t
 } 
 {% endsyntax %}
 
-It is best to avoid browser detection if you can do feature detection. Having said that HeadJS provides more helper 
-classes for IE because it is considered as a feature itself. 
-
+It is best to avoid browser detection if you can do feature detection. 
 
 ## Page class and ID
 
-Say you are on page: http://mydomain.com/addons/node/router.html. Following CSS selectors apply:
+Say you are on page: `http://mydomain.com/addons/node/router.html`. Following CSS selectors apply:
 
 {% syntax css %}
 .addons-node-section { }
@@ -457,22 +458,24 @@ Say you are on page: http://mydomain.com/addons/node/router.html. Following CSS 
 For each given path you get a CSS class representing the "folder" and an ID representing the page. 
 An empty page is "#index-page" and the root folder is ".root-section"
 
-You can change the default suffixes with head_conf variable.
+You can change the these suffixes with head_conf variable.
 
 {% syntax js %}
 var head_conf = { section: '-area', page: ''};
 {% endsyntax %}
 
-With above configuration the selectors would be:
+Now the selectors are:
 
 {% syntax css %}
-.addons-node-area {}
-#router {}
+.addons-node-area { }
+
+#router { }
 {% endsyntax %}
 
-JavaScript feature detection
-Every feature can be found from the <code>head</code> global variable that you can use on your JavaScript code. 
-Here is a screenshot of the variable:
+
+## JavaScript feature detection
+
+Every feature can be found from th <code>headjs</code> global JavaScript variable. Here is a screenshot:
 
 [IMAGE]
 
@@ -503,15 +506,8 @@ A convenience shortcut for head.ready
 
 ### head.feature(name, flag) 
 
-Enable or disable a feature. features are stored as a class name to `<html>` element and on global `headjs` variable. if the flag arguments evaluates to `true` a feature is enabled.
+Enable or disable a feature. features are stored as a class name to `<html>` element and on global `headjs` variable. if the flag arguments evaluates to `true` a feature is enabled. Call this method in your HEAD before the stylesheets are loaded.
 
-### head.cookie(name)
-
-Retrieve a cookie value
-
-### head.cookie(name, value, [expires])
-
-Set a cookie value. optional expires argument specifies the age in days.
 
 
 ## Configuration
@@ -528,10 +524,10 @@ var head_conf = { screens: [640, 1024, 1280, 1680] };
 
 List of configuration variables
 
+- `head`	name of the global variable to be used. default: "head". Set this to "JS" and you can call `JS.ready()` for example 
 - `screens` an array of screen sizes to watch for  
 - `section` a suffix for CSS class representing the current "folder". default: "-section"
 - `page`   	a suffix for CSS ID representing the current page. default: "-page"
-- `head`		name of the global variable to be used. default: "head"
 
 </section>
 
@@ -539,20 +535,16 @@ List of configuration variables
 
 <section id="download">
 
-### Current version ({{version}})
+### Development version (0.1.0 - early beta)
 
-- [Source code](https://github.com/headjs/headjs/tree/{{version}})
-- [head.js](https://github.com/headjs/headjs/raw/{{version}}/head.js)
-- [head.min.js](https://github.com/headjs/headjs/raw/{{version}}/head.min.js)
+The library is not production ready yet. Watch Head JS on [Github](https://github.com/headjs/headjs/) to hear about the first release.
 
-### Development version
-
-- [Source code](https://github.com/headjs/headjs/)
 - [head.js](https://github.com/headjs/headjs/raw/master/head.js)
 - [head.min.js](https://github.com/headjs/headjs/raw/master/head.min.js)
+- [head.loader.js](https://github.com/headjs/headjs/raw/master/src/head.loader.js)
+
 
 </section>
-
 {% endblock %}
 
 
