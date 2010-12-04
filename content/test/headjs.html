@@ -1,0 +1,23 @@
+{% extends "demo.django" %}
+{# :mode=django: #}
+
+{%hyde  
+ title: head.js
+%}
+
+{% block head %}
+<script src="../media/js/head.min.js"></script> 
+
+<script>
+head.js("https://github.com/DmitryBaranovskiy/raphael/raw/master/raphael.js")
+	 .js("https://github.com/jquery/jquery-ui/raw/master/jquery-1.4.4.js")
+	 .js("https://github.com/codyaray/mashbot/raw/b6e3723dc29026bdec9cb7963812e9636cdbe03d/public/javascripts/prototype.js")
+	 .js("https://github.com/codyaray/mashbot/raw/b6e3723dc29026bdec9cb7963812e9636cdbe03d/public/javascripts/jquery-ui-1.7.2/ui/jquery-ui.js")
+	 .js("https://github.com/codyaray/mashbot/raw/b6e3723dc29026bdec9cb7963812e9636cdbe03d/public/javascripts/fullcalendar-1.4.3/fullcalendar.js")
+	 .js("https://github.com/kosmas58/compass-jquery-plugin/raw/master/lib/jslint.js");
+</script>
+{% endblock %}
+
+{% block details %}
+head.js() calls are always separate from the page rendering. Does not matter whether you load on HEAD or on bottom. You can also load programmatically on demand.
+{% endblock %}

@@ -1,0 +1,67 @@
+<!doctype html>
+{# :mode=django: #}
+
+<html class="no-js">
+
+<head>
+	<title>{{page.title}}</title>
+	
+	<script>
+		var now = new Date();
+		window.onload = function() {
+			document.getElementById("content").style.display = "block";	
+			document.getElementById("ms").innerHTML = (new Date()).getTime() - now.getTime(); 	
+		}
+	</script> 
+	
+	{% block head %}{% endblock %}
+
+	<link rel="stylesheet" type="text/css" href="../media/css/demo.css"/>	
+	
+</head>	
+
+<body>
+
+	<div id="wrap">
+		
+		<div id="nav" class="clear">
+			<a href="script.html">SCRIPT SRC <em>in head</em></a>
+			<a href="script-bottom.html">SCRIPT SRC <em>on bottom</em></a>
+			<a href="headjs.html">head.js <em>on head</em></a>
+		</div>
+		
+		<div id="content" style="display:none">
+		
+			<h1>{{page.title}}</h1>
+			
+			<div id="time"><span id="ms"></span> ms</div>
+			
+			<p>
+				Press <strong>CTRL+SHIFT+R</strong> to reload with an empty cache = first impression.
+			</p>
+			
+			<p>
+				<strong>View source</strong> to see how scripts are provided.
+			</p>
+			
+			<p>
+				Time is calculated when <code>window.onload</code> fires.
+			</p> 
+			
+			<p class="details">
+				{% block details %}{% endblock %}
+			</p>
+			
+		</div>
+		
+		<div id="footer">
+			<a href="../">&laquo; headjs.com</a>
+		</div>
+		
+	</div>
+	
+	{% block bottom %}{% endblock %}
+	
+</body>
+	
+	
