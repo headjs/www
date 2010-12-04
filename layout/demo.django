@@ -67,6 +67,10 @@
 				Time is calculated when <code>window.onload</code> fires.
 			</p> 
 			
+			<p>
+				Try with different browsers. The time difference varies a lot.
+			</p> 
+			
 			<p class="details">
 				{% block details %}{% endblock %}
 			</p>
@@ -75,6 +79,8 @@
 		
 		<div id="footer">
 			<a href="../#theory">&laquo; headjs.com</a>
+			
+			&nbsp; | &nbsp; <a href="https://github.com/headjs/headjs/issues">found a bug?</a>
 		</div>
 		
 	</div>

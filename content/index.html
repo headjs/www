@@ -3,7 +3,7 @@
 
 {%hyde  
  title: 'Head JS :: The only script in your HEAD'
- description: The HEAD section is absolutely the worst place to load and execute scripts. The more and the bigger the worse it gets. Stop that. Head JS is all you need.
+ description:  HEAD section is absolutely the worst place to load and execute scripts. The more and the bigger the worse it gets. Stop that. Head JS is all you need.
  keywords: labjs, modernizr, parallel script loading, javascript loader, non-blocking javascript, javascript modernizer
 %}
 
@@ -25,7 +25,7 @@
    <h3>A 2.30 kb script that speeds up, simplifies and modernizes your site</h3>
 
 	<p>
-		The HEAD section is the worst place to load scripts. It's painfully slow. The more and the bigger the worse it gets. Move scrips to the bottom and you run into dependency issues and you cannot <em>safely</em> use HTML5 and CSS3. Enter Head JS. A compact solution to these universal issues. <a href="#theory">more theory &raquo;</a>
+		Load scripts like images. Use HTML5 and CSS3 safely. Target CSS for different screens, paths, states and browsers. Make it the only script in your HEAD. A concise solution to universal issues.  <a href="#theory">more theory &raquo;</a>
 	</p>
    
 </div>
@@ -48,7 +48,7 @@ head.js("/path/to/jquery.js", "/google/analytics.js", "/js/site.js", function() 
 });
 {% endsyntax %}
 
-Head JS loads scripts in parallel *without blocking* the page. The performance will be improved even with a single minified script.
+Head JS loads scripts in parallel *without blocking* the page. The page will load faster even with a single combined file.
 
 ## JavaScript organizer
 
@@ -567,16 +567,5 @@ The library is not production ready yet. Watch Head JS on [Github](https://githu
 
 http://thechangelog.com/post/2058578126/headjs-the-only-script-in-your
 http://code.google.com/p/extsrcjs/
-
-
-
-
-### 1. HTML5 and CSS3 cannot be used
-
-The latest CSS3 features and the new HTML5 tags do not work on IE. HeadJS provides helper CSS classes to take care of these cross browser issues. But if you load Head JS on bottom of the page you'll experience a FOUC (Flash of Unstyled Content) effect: the page is first rendered without the helper classes and then re-rendered when the script is loaded. The same goes to screen size detection, CSS routing and Dynamic CSS. To avoid this ugly FOUC effect you need to load the script on top.
-
-### 2. JavaScript organization get's hard
-
-When the scripts are included on bottom you cannot do scripting that depend on these scripts *before* they are included. This is a common issue on server side template systems or with separate header/footer files where you typically work inside the middle section. You cannot execute any JavaScript that depend on the scripts that are included on the bottom. 
 
 
