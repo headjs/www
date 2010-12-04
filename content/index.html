@@ -185,20 +185,30 @@ Always. This is guaranteed even with a single combined JavaScript file. See it y
 
 [Same scripts loaded with Head JS](test/headjs.html)
 
-Head JS frees the page from script loading burden. The scripts are _always_ loaded in paraller no matter how
-many of them and what the browser is. The difference on the user experience can be dramatic especially on the initial page load when the scripts are not yet in cache. It's your crucial first impression.
+Head JS frees the page from script loading burden. The scripts loading is separated from the page rendering and they are _always_ loaded in paraller no matter how many of them and what the browser is. The difference on the user experience can be dramatic especially on the initial page load when the scripts are not yet in cache. It's your crucial first impression.
 
 Pages no longer "hang" and there is less or zero "flashing" between pages. It's worth mentioning that a user only cares when the page is ready and current networking tools doesn't highlight this event. They focus on the overall loading of page assets.
 
-Head JS can make your pages load 100% or sometimes even 400% faster. Script loading can make the largest impact
-on client side optimization. 
+Head JS can make your pages load 100% or sometimes even 400% faster. Script loading can make the largest impact on client side optimization. 
 	
 	
 ## SCRIPT SRC
 
-Regular SCRIPT SRC tags _block_ the page. The page needs to wait for all scripts to be loaded until it is rendered. This is how majority of web pages work. For example here is source code from apple.com front page.
+Regular SCRIPT SRC tags _block_ the page. The page needs to wait for all scripts to be loaded until it is rendered. This is how majority of web sites are done. For example here are the scripts on Apple.com's HEAD section:
 
-There is not a large difference whether the script tags are placed on top or on bottom of the page. On both 
+{% syntax html %}
+<script src="http://images.apple.com/global/scripts/lib/prototype.js"></script>
+<script src="http://images.apple.com/global/scripts/lib/scriptaculous.js"></script>
+<script src="http://images.apple.com/global/scripts/browserdetect.js"></script>
+<script src="http://images.apple.com/global/scripts/apple_core.js"></script>
+<script src="http://images.apple.com/global/scripts/search_decorator.js"></script>
+<script src="http://images.apple.com/global/scripts/promomanager.js"></script>
+<script src="http://images.apple.com/home/scripts/ticker.js"></script>
+<script src="http://images.apple.com/home/scripts/promotracker.js"></script>
+{% endsyntax %}
+
+
+There is __not__ a large difference whether the script tags are placed on top or on bottom of the page. On both 
 cases the scripts must be loaded before page is rendered. [Compare it yourself](test/script.html).
 
 If you are using an older generation browser the scripts will be loaded sequentially. This will be is awfully slow. Here is a screenshot of such a scenario in Firefox 3.0. 
@@ -211,7 +221,7 @@ It's easy to understand that this is poison for performance. The single best opt
 		
 With Head JS your page can be ready _sooner_ than your scripts. This leads to following
 
-- The "DOM ready" event such as $(document).ready() is already fired when the scripts arrive. 
+- The "DOM ready" event such as `$(document).ready()` is already fired when the scripts arrive. 
   If the loaded scripts depend on that event make sure your library can handle this. jQuery 1.4+ works.  
   
 - If your scripts modify the page you can see a "flash of unbehaviored content" effect (FUBC):
