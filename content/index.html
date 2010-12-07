@@ -3,7 +3,7 @@
 
 {%hyde  
  title: 'Head JS :: The only script in your HEAD'
- description:  HEAD section is absolutely the worst place to load and execute scripts. The more and the bigger the worse it gets. Stop that. Head JS is all you need.
+ description:  Load scripts like images. Use HTML5 and CSS3 safely. Target CSS for different screens, paths, states and browsers. Make it the only script in your HEAD. A concise solution to universal issues.
  keywords: labjs, modernizr, parallel script loading, javascript loader, non-blocking javascript, javascript modernizer
 %}
 
@@ -48,7 +48,7 @@ head.js("/path/to/jquery.js", "/google/analytics.js", "/js/site.js", function() 
 });
 {% endsyntax %}
 
-Head JS loads scripts in parallel *without blocking* the page. The page will load faster even with a single combined file.
+Head JS loads JavaScript files like images without *blocking* the page. Your page will be faster even with a single combined file.
 
 ## JavaScript organizer
 
@@ -60,11 +60,10 @@ head.ready(function() {
    $("#my").jquery_plugin();
 });
 
-// load jQuery on bottom of the page
+// load jQuery whenever you wish bottom of the page
 head.js("/path/to/jquery.js");  
 {% endsyntax %}
 
-A typical problem in templating systems or in pages with separate header/footer files. 
 
 ## CSS modernizer
 
@@ -100,7 +99,7 @@ DIV is good but HeadJS let's you be semantic and futuristic
 ## Screen size detector 
 
 Design pages for __1980px__ wide screen and make it also work on __10"__ laptops and mobile phones. 
-Viewport size is the single most important thing when developing mobile sites.
+Viewport is the most important thing when developing for mobile clients.
 
 {% syntax css %}
 /* screen size less than 1024 pixels */
@@ -149,7 +148,7 @@ Target CSS for specific paths and pages
 
 ## Browser detector
    
-All browsers and versions are detected but this is mostly for making IE behave well
+All browsers are detected but we all love IE
    
 {% syntax css %}
 /* older than IE9 */
@@ -159,7 +158,7 @@ All browsers and versions are detected but this is mostly for making IE behave w
 .ie6 ul  { list-style: none; }
 {% endsyntax %}
 
-It's generally wiser to use feature detection but we all know IE: it's a feature in itself.
+It's generally wiser to use feature detection IE is a feature in itself.
    
 ## JavaScript feature detection
 
@@ -178,23 +177,22 @@ if (head.logged) {
 <section id="theory">
 ## Head JS script loader
 
-With Head JS your scripts load like images - completely separated from the page rendering. The page is ready sooner. 
-Always. This is guaranteed even with a single combined JavaScript file. See it yourself:
+With Head JS your scripts load like images - completely separated from the page rendering process. The page is ready sooner. Always. This is guaranteed even with a single combined JavaScript file. See it yourself:
 
 [Sample page with 5 SCRIPT SRC tags](test/script.html)
 
 [Same scripts loaded with Head JS](test/headjs.html)
 
-Head JS frees the page from script loading burden. The scripts loading is separated from the page rendering and they are _always_ loaded in paraller no matter how many of them and what the browser is. The difference on the user experience can be dramatic especially on the initial page load when the scripts are not yet in cache. It's your crucial first impression.
+Non-blocking loading is the key to fast pages. Moreover Head JS loads scripts in _parallel_ no matter how many of them and what the browser is. The speed difference can be dramatic especially on the initial page load when the scripts are not yet in cache. It's your crucial first impression.
 
-Pages no longer "hang" and there is less or zero "flashing" between pages. It's worth mentioning that a user only cares when the page is ready and current networking tools doesn't highlight this event. They focus on the overall loading of page assets.
+Pages no longer "hang" and there is less or zero "flashing" between pages. User only cares when the page is ready. Unfortunately current networking tools don't highlight this crucial point. They focus on the overall loading of assets instead.
 
-Head JS can make your pages load 100% or sometimes even 400% faster. Script loading can make the largest impact on client side optimization. 
-	
-	
+Head JS can make your pages load 100% or even 400% faster. It can make the largest impact on client side optimization.
+
+
 ## SCRIPT SRC
 
-Regular SCRIPT SRC tags _block_ the page. The page needs to wait for all scripts to be loaded until it is rendered. This is how majority of web sites are done. For example here are the scripts on Apple.com's HEAD section:
+This is from Apple.com's HEAD:
 
 {% syntax html %}
 <script src="http://images.apple.com/global/scripts/lib/prototype.js"></script>
@@ -207,60 +205,57 @@ Regular SCRIPT SRC tags _block_ the page. The page needs to wait for all scripts
 <script src="http://images.apple.com/home/scripts/promotracker.js"></script>
 {% endsyntax %}
 
+All these scripts _block_ the page. The page needs to wait for these to be loaded until it starts rendering itself. This is how majority of web sites are done. There is __not__ a large difference whether the script tags are placed on top or on bottom of the page. On both cases the scripts must be loaded first. [Compare it yourself](test/script.html).
 
-There is __not__ a large difference whether the script tags are placed on top or on bottom of the page. On both 
-cases the scripts must be loaded before page is rendered. [Compare it yourself](test/script.html).
-
-If you are using an older generation browser the scripts will be loaded sequentially. This will be is awfully slow. Here is a screenshot of such a scenario in Firefox 3.0. 
+With older generation browsers the scripts will be loaded sequentially. Here is a screenshot from Firefox 3.0. 
 
 ![sequential downloading of scripts](media/img/serial-load.gif)
 
 It's easy to understand that this is poison for performance. The single best optimization technique for script loading is to use a non-blocking and paraller script loader such as Head JS.
 	
 ## Developing with Head JS
-		
-With Head JS your page can be ready _sooner_ than your scripts. This leads to following
+
+With Head JS your page can be ready before your scripts. You need to prepare for that
 
 - The "DOM ready" event such as `$(document).ready()` is already fired when the scripts arrive. 
   If the loaded scripts depend on that event make sure your library can handle this. jQuery 1.4+ works.  
   
 - If your scripts modify the page you can see a "flash of unbehaviored content" effect (FUBC):
   a quick glimpse of unmodified HTML before the loaded scripts act on it. You can avoid this by initially hiding 
-  the modifiable elements before your scripts make them visible and do their job. 
-	 
-	  
+  the modifiable elements before your scripts make them visible and do their job.
+
+
 ## Combining scripts
 
 There is a common misbelief that a single combined script performs best. Wrong: 
 
-- latest browsers and Head JS can load scripts in parallel. loading 3 small files in parallel 
-  instead of as a single chunk is actually faster. 
+- latest browsers and Head JS can load scripts in parallel. loading 3 parts in parallel 
+  instead of as a single chunk is usually faster. 
 
 - if an individual file is changed the whole combination changes and you loose the benefits of caching. 
   it's better to combine only the stable files that doesn't change often.
-  
-- many popular libraries are hosted on CDN. you should take the advantage of it instead of hosting yourself 	
-	
-- combined files are easily larger than **15kb**. iPhone cannot cache files larger than that.
 
-Combining scripts is a good pattern but when loading with Head JS the file amount is not _as_ critical as it is with SCRIPT SRC because page rendering is not blocked.
-	
+- many popular libraries are hosted on CDN. you should take the advantage of it instead of hosting yourself
+
+- [iPhone 3.x](http://www.phpied.com/iphone-caching/) cannot cache files larger than **15kb** and in iPhone 4 the limit is **25kb**. And this is the size before gzipping. if you care about iPhones you should respect these limits.  
+
+With Head JS the file amount is not _as_ critical as it is with SCRIPT SRC because page rendering is not blocked. Combining scripts is an important optimization method but you can go too far with it.
+
 ## Page styling and CSS
 
-HEAD is the only place where a script can safely affect on page styling because it's executed before stylesheets. 
-Head JS takes this important role seriously:
+Stylesheets needs to be [on top](http://developer.yahoo.com/performance/rules.html#css_top). HEAD is the only place where a script is executed before the stylesheets and where it can give a helping hand for CSS developer. Head JS takes this important role seriously:
 
 - you can use the latest CSS3 techniques and provide alternate CSS for IE and other old school browsers
 - you can safely use HTML5 tags even with IE
 - you can target CSS for specific screen widths, browsers and paths
 - you can style your pages differently depending on the application state, such as whether user is logged or not
 
-The included file must be as small as possible since it blocks the page rendering process. This was one of the primary goals when designing Head JS. It currently weights only 2.3 kb when minified and gzipped. Obviously it's preferred to load the file from a CDN. Google: I'm [staring at You](http://code.google.com/p/google-ajax-apis/issues/detail?id=548)! (like it? give it a star)
+HEAD script blocks so it must be small. This is the essence of Head JS. It weights 2.3 kb when minified and gzipped. It's preferred to load the file from a CDN. Google: I'm [staring at You](http://code.google.com/p/google-ajax-apis/issues/detail?id=548)! (please give it a star)
 
-If you attempt to style the page on the scripts loaded with Head JS you can see a "Flash of Unstyled Content" effect (FOUC): the page is first rendered without the style definitions and then re-rendered when the scripts are loaded.
+If you attempt to style the page on the scripts loaded with Head JS you can see a "Flash of Unstyled Content" (FOUC) effect: the page is first rendered without the to-be-loaded style definitions and then re-rendered when the scripts are executed.
 
 Note: As crazy as it sounds FUBC and FOUC are not my acronyms.
-	
+
 </section>
 
 # Usage
@@ -341,13 +336,15 @@ head.ready("tools", function() {
 // load scripts by assigning a label for them
 head.js(
    {jquery: "http://http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"},
-   {tools:  "http://cnd.jquerytools.org/1.2.5/tiny/jquery.tools.min"},
-   {heavy:   "http://a.heavy.library/we/dont/want/to/wait/for.js"},
+   {tools: "http://cnd.jquerytools.org/1.2.5/tiny/jquery.tools.min"},
+   {heavy: "http://a.heavy.library/we/dont/want/to/wait/for.js"},
 
-   // label is not required for all files	
+   // label is optional	
    "http://can.be.mixed/with/unlabeled/files.js"
 );
 {% endsyntax %}
+
+If label is not given then the file name without the path is used as the key. On the jQuery library above this would be just "jquery.min.js".
 
 {% comment %}
 On complex applications you can nest the calls for total loading control
@@ -406,6 +403,56 @@ head.feature("video", function() {
 {% endsyntax %}
 
 [Modernizr](https://github.com/Modernizr/Modernizr/blob/master/modernizr.js) is a good source of tests. It's preferred to append the tests inside `head.min.js` file.
+
+
+## HTML5 enabler
+
+Head JS adds HTML5 support for all browsers: 
+
+{% syntax html %}
+<style>
+   article { text-shadow:0 0 1px #ccc; }
+</style>
+
+<!-- works in IE too -->
+<article>
+   <header></header>
+   <section></section>
+   <footer></footer>
+</article>
+{% endsyntax %}
+
+#### List of new tags
+
+- [abbr](http://www.w3schools.com/html5/tag_abbr.asp) an abbrevation
+- [article](http://www.w3schools.com/html5/tag_article.asp) defines external content
+- [aside](http://www.w3schools.com/html5/tag_aside.asp) defines some content aside from the content it is placed in
+- [audio](http://www.w3schools.com/html5/tag_audio.asp) defines sound, such as music or other audio streams.
+- [canvas](http://www.w3schools.com/html5/tag_canvas.asp) a container for javascript graphics
+- [details](http://www.w3schools.com/html5/tag_details.asp) describe details about a document, or parts of a document
+- [figcaption](http://www.w3schools.com/html5/tag_figcaption.asp) contains a caption for the "figure" element
+- [figure](http://www.w3schools.com/html5/tag_figure.asp) stand-alone content, typically used to explain parts of a document
+- [footer](http://www.w3schools.com/html5/tag_footer.asp) defines the footer of a section or document
+- [header](http://www.w3schools.com/html5/tag_header.asp) defines the header of a section or document
+- [hgroup](http://www.w3schools.com/html5/tag_hgroup.asp) defines the heading of a section or a document.
+- [mark](http://www.w3schools.com/html5/tag_mark.asp) tag defines marked or highlighted text
+- [meter](http://www.w3schools.com/html5/tag_meter.asp) for measurements with a known minimum and maximum value
+- [nav](http://www.w3schools.com/html5/tag_nav.asp) a section intended for navigation
+- [output](http://www.w3schools.com/html5/tag_output.asp) defines different types of output, such as output written by a script
+- [progress](http://www.w3schools.com/html5/tag_progress.asp)display the progress of a time consuming function in JavaScript.
+- [section](http://www.w3schools.com/html5/tag_section.asp) defines sections in a document such as chapters, headers, footers, or any other sections of the document.
+- [summary](http://www.w3schools.com/html5/tag_summary.asp) contains a header for the "details" element
+- [time](http://www.w3schools.com/html5/tag_time.asp) defines a time or a date, or both.
+- [video](http://www.w3schools.com/html5/tag_video.asp) defines video, such as a movie clip or other video streams    
+
+IE has problems printing HTML5 elements. You can fix that by loading a [print protector](http://www.iecss.com/print-protector/) script on your page:
+
+{% syntax js %}
+if (head.browser.ie)  {
+   head.js("http://www.iecss.com/print-protector/javascript/iepp.1-6-2.min.js");		
+}
+{% endsyntax %}
+
 
 ## Screen size detection
 
@@ -570,6 +617,11 @@ The library is not production ready yet. Watch Head JS on [Github](https://githu
 - [head.js](https://github.com/headjs/headjs/raw/master/head.js)
 - [head.min.js](https://github.com/headjs/headjs/raw/master/head.min.js)
 - [head.loader.js](https://github.com/headjs/headjs/raw/master/src/head.loader.js)
+
+## Issues
+
+Unfortunately there is no way to see whether a script was successfully loaded with IE or not. For that reason a feature such as `head.error()` is impossible to implement. When a script cannot be accessed head JS is silent.
+
 
 
 </section>
