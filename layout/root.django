@@ -43,8 +43,8 @@
 	</div>
 
 	<footer>
-		<a href="http://twitter.com/headjs/">Head JS @ Twitter</a>
-		<a href="http://cloudpanic.com/about.html">Author: Tero Piirainen</a>
+		<a href="http://cloudpanic.com/about.html">Author: <strong>Tero Piirainen</strong></a> &bull;
+		<a href="http://twitter.com/headjs/">Head JS @ Twitter</a>		
 	</footer>
 				
 	<script>	

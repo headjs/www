@@ -525,13 +525,14 @@ Versions 3 - 10 are covered. It is best to avoid browser detection if you are ab
 Say you are on a page: `http://mydomain.com/addons/node/router.html`. Following CSS selectors apply:
 
 {% syntax css %}
+.addons-section { }
+
 .addons-node-section { }
 
 #router-page { }
 {% endsyntax %}
 
-For each given path you get a CSS class representing the "folder" and an ID representing the page. 
-An empty page is "#index-page" and the site root is ".root-section". If you have an existing id assigned for the HTML element it will be *overwritten*. On this case you can place the id attribute for the BODY tag.
+For each given path you get CSS classes representing "folders" and an ID representing the page. The deeper your URL the more classes you'll get  An empty page is "#index-page" and the site root is ".root-section". NOTE: If you have an existing id assigned for the HTML element it will be *overwritten*. On this case you can place the id attribute for the BODY tag.
 
 You can change the these suffixes with head_conf variable.
 
@@ -542,6 +543,8 @@ var head_conf = { section: '-area', page: ''};
 Now the selectors are:
 
 {% syntax css %}
+.addons-area { }
+
 .addons-node-area { }
 
 #router { }
@@ -610,24 +613,19 @@ List of configuration variables
 
 <section id="download">
 
-### Development version (0.1.0 - early beta)
+## Version 0.2
 
-The library is not production ready yet. Watch Head JS on [Github](https://github.com/headjs/headjs/) to hear about the first release.
+The library is rather steady. A week to [get feedback](https://github.com/headjs/headjs/issues) and a production release is out. [Watch Head JS](https://github.com/headjs/headjs/) to be the first to hear about the release.
 
-- [head.js](https://github.com/headjs/headjs/raw/master/head.js)
-- [head.min.js](https://github.com/headjs/headjs/raw/master/head.min.js)
-- [head.loader.js](https://github.com/headjs/headjs/raw/master/src/head.loader.js)
 
-## Issues
+- [head.js](https://github.com/headjs/headjs/raw/master/dist/head.js)
+- [head.min.js](https://github.com/headjs/headjs/raw/master/dist/head.min.js)
+- [head.load.min.js](https://github.com/headjs/headjs/raw/master/dist/head.load.min.js)
+
+### Issues
 
 Unfortunately there is no way to see whether a script was successfully loaded with IE or not. For that reason a feature such as `head.error()` is impossible to implement. When a script cannot be accessed head JS is silent.
 
-
-
 </section>
 {% endblock %}
-
-http://thechangelog.com/post/2058578126/headjs-the-only-script-in-your
-http://code.google.com/p/extsrcjs/
-
 
