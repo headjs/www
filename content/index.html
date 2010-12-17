@@ -288,7 +288,7 @@ head.js("file2.js");
 head.js("file3.js");
 
 // the previous can also be written as 
-head.js("file1.js").js("file1.js").("file3.js");
+head.js("file1.js").js("file1.js").js("file3.js");
 {% endsyntax %}
 
 ## Script organization
@@ -613,18 +613,19 @@ List of configuration variables
 
 <section id="download">
 
-## Version 0.2
+## Version 0.5
 
-The library is rather steady. A week to [get feedback](https://github.com/headjs/headjs/issues) and a production release is out. [Watch Head JS](https://github.com/headjs/headjs/) to be the first to hear about the release.
-
+Production ready.
 
 - [head.js](https://github.com/headjs/headjs/raw/master/dist/head.js)
 - [head.min.js](https://github.com/headjs/headjs/raw/master/dist/head.min.js)
 - [head.load.min.js](https://github.com/headjs/headjs/raw/master/dist/head.load.min.js)
 
+I'm JavaScripter. There are [couple](http://www.stevesouders.com/blog/2010/12/15/controljs-part-1/) of [guys](http://blog.getify.com/2010/12/on-script-loaders/) wiser than me in theory of script loading. Eventually all this wisdom will be merged to Head JS
+
 ### Issues
 
-Unfortunately there is no way to see whether a script was successfully loaded with IE or not. For that reason a feature such as `head.error()` is impossible to implement. When a script cannot be accessed head JS is silent.
+- There is no way to detect if script loading failed in IE. For that reason a feature such as `head.error()` is impossible to implement. When a script URL cannot be accessed Head JS is silent.
 
 </section>
 {% endblock %}
