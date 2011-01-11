@@ -14,6 +14,7 @@
 	<a href="#theory">theory</a>
 	<a href="#usage">usage</a>
 	<a href="#api">api</a>
+	<a href="#internals">internals</a>
 	<a href="#download">download</a>
 </nav>
 
@@ -212,19 +213,8 @@ With older generation browsers the scripts will be loaded sequentially. Here is 
 ![sequential downloading of scripts](media/img/serial-load.gif)
 
 It's easy to understand that this is poison for performance. The single best optimization technique for script loading is to use a non-blocking and paraller script loader such as Head JS.
-	
-## Developing with Head JS
 
-With Head JS your page can be ready before your scripts. You need to prepare for that
-
-- The "DOM ready" event such as `$(document).ready()` is already fired when the scripts arrive. 
-  If the loaded scripts depend on that event make sure your library can handle this. jQuery 1.4+ works.  
   
-- If your scripts modify the page you can see a "flash of unbehaviored content" effect (FUBC):
-  a quick glimpse of unmodified HTML before the loaded scripts act on it. You can avoid this by initially hiding 
-  the modifiable elements before your scripts make them visible and do their job.
-
-
 ## Combining scripts
 
 There is a common misbelief that a single combined script performs best. Wrong: 
@@ -290,6 +280,33 @@ head.js("file3.js");
 // the previous can also be written as 
 head.js("file1.js").js("file1.js").js("file3.js");
 {% endsyntax %}
+
+
+### DOM Ready
+
+With `head.js()` call your page can be ready before your scripts. You need to prepare for that
+
+- The "DOM ready" event such as `$(document).ready()` is already fired when the scripts arrive. 
+  If the loaded scripts depend on that event make sure your library can handle this. jQuery 1.4+ works.  
+  
+- If your scripts modify the page you can see a "flash of unbehaviored content" effect (FUBC):
+  a quick glimpse of unmodified HTML before the loaded scripts act on it. You can avoid this by initially hiding 
+  the modifiable elements before your scripts make them visible and do their job.
+  
+- `document.write()` statements are not supported since it's hard or impossible to know where to write to. 
+	It's an bad programming habit anyway so it's likely that Head JS will ever support this.
+  
+
+### Enable caching
+
+Make sure that the files loaded with head.js can be cached. For example:
+
+![file caching with future expiration header](media/img/expires-header.gif)
+
+This Google Analytics script will be served from browser's cache after the initial load. A proper max-age header configuration on the web server does the trick. If you care about performance this is a good habit for every JavaScript file. Not only with head.js.
+
+Internally Head JS uses browser's cache to preload scripts before they are executed. This trick is used on Chrome, Safari and IE. Without caching enabled a file will be _loaded twice_ on the initial load. There are no issues on Firefox and Opera because they execute files on the order they are programmatically inserted on the page.
+
 
 ## Script organization
 
@@ -613,20 +630,22 @@ List of configuration variables
 
 <section id="download">
 
-## Version 0.5
+## Version 0.8
 
-Production ready.
+- [head.js](https://github.com/headjs/headjs/raw/master/dist/head.js) - source code
+- [head.min.js](https://github.com/headjs/headjs/raw/master/dist/head.min.js) - minified version
+- [head.load.min.js](https://github.com/headjs/headjs/raw/master/dist/head.load.min.js) - JavaScript loader only
 
-- [head.js](https://github.com/headjs/headjs/raw/master/dist/head.js)
-- [head.min.js](https://github.com/headjs/headjs/raw/master/dist/head.min.js)
-- [head.load.min.js](https://github.com/headjs/headjs/raw/master/dist/head.load.min.js)
-
-I'm JavaScripter. There are [couple](http://www.stevesouders.com/blog/2010/12/15/controljs-part-1/) of [guys](http://blog.getify.com/2010/12/on-script-loaders/) wiser than me in theory of script loading. Eventually all this wisdom will be merged to Head JS
 
 ### Issues
 
-- There is no way to detect if script loading failed in IE. For that reason a feature such as `head.error()` is impossible to implement. When a script URL cannot be accessed Head JS is silent.
+There is no way to detect if script loading failed in IE. For that reason a feature such as `head.error()` is impossible to implement. When a script URL cannot be accessed Head JS is silent.
 
+## Future
+
+Head JS is rapidly being adopted to large number of websites all the time. A quick [Twitter search](http://twitter.com/search?q=headjs) reveals that it's becoming a core client side development tool for many. For the same reason I also get a lot of feature requests. Right now the strategy is to keep Head JS as minimalistic as it is now. 
+
+Expect *not* to see extensive CSS3 testing, CSS loaders or more complex loading logics being developed. These can be build on _top_ of Head JS. A separate module or extension. If you have an idea pleace concider this first.
 </section>
 {% endblock %}
 

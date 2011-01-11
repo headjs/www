@@ -66,7 +66,7 @@ MEDIA_PROCESSORS = {
         '__.less':('hydeengine.media_processors.TemplateProcessor',
                 'hydeengine.media_processors.LessCSS',
                 'hydeengine.media_processors.YUICompressor',),
-        '.js':(
+        '__.js':(
                 'hydeengine.media_processors.TemplateProcessor',
                 'hydeengine.media_processors.YUICompressor',)
     } 
