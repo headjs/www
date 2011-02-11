@@ -10,7 +10,7 @@
 	<meta name="keywords" content="{{page.keywords}}">	
 	<meta name="author" content="{{site.author}}">	
 		
-	<script src="media/js/head.min.js?v=1"></script>
+	<script src="media/js/head.min.js?v=2"></script>
 	
 	<!-- include the stylesheet after headjs -->
 	<link rel="stylesheet" href="media/css/style.css?v=0.3"> 
@@ -41,7 +41,8 @@
 
 	<footer>
 		<a href="http://cloudpanic.com/about.html">Author: <strong>Tero Piirainen</strong></a> &bull;
-		<a href="http://twitter.com/headjs/">Head JS @ Twitter</a>		
+		<a href="http://twitter.com/headjs/">Head JS @ Twitter</a> &bull;		
+		<a href="https://github.com/headjs/headjs/issues">report a bug</a>
 	</footer>
 				
 	<script>	

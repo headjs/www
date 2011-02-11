@@ -14,8 +14,7 @@
 	<a href="#theory">theory</a>
 	<a href="#usage">usage</a>
 	<a href="#api">api</a>
-	<a href="#internals">internals</a>
-	<a href="#download">download</a>
+	<a href="#download">download <strong>(v0.9)</strong></a>
 </nav>
 
 <div id="hero">
@@ -23,10 +22,10 @@
    
    <h2>The only script in your &lt;HEAD&gt;</h2>
    
-   <h3>A 2.30 kb script that speeds up, simplifies and modernizes your site</h3>
+   <h3>A tiny script that speeds up, simplifies and modernizes your site</h3>
 
 	<p>
-		Load scripts like images. Use HTML5 and CSS3 safely. Target CSS for different screens, paths, states and browsers. Make it the only script in your HEAD. A concise solution to universal issues.  <a href="#theory">more theory &raquo;</a>
+		Load scripts like images. Use HTML5 and CSS3 safely. Target CSS for different screens, paths, states and browsers. Make it the only script in your HEAD. A concise solution to universal issues.  <a href="#theory">the theory &raquo;</a>
 	</p>
    
 </div>
@@ -140,7 +139,9 @@ Target CSS for specific paths and pages
 
 {% syntax css %}
 /* CSS targeted for home page only */
-.root-section #index-page
+#index-page.root-section {  
+
+}
    
 /* make sidebar visible under /plugins  */   
 .plugins-section #sidebar { display: block; }
@@ -233,18 +234,18 @@ With Head JS the file amount is not _as_ critical as it is with SCRIPT SRC becau
 
 ## Page styling and CSS
 
-Stylesheets needs to be [on top](http://developer.yahoo.com/performance/rules.html#css_top). HEAD is the only place where a script is executed before the stylesheets and where it can give a helping hand for CSS developer. Head JS takes this important role seriously:
+Stylesheets needs to be [on top](http://developer.yahoo.com/performance/rules.html#css_top). An included script in the HEAD is the only place where a script is executed before the stylesheets are loaded and where it can give a helping hand for the CSS developer. Head JS takes this important role seriously and gives you following possibilities:
 
-- you can use the latest CSS3 techniques and provide alternate CSS for IE and other old school browsers
-- you can safely use HTML5 tags even with IE
-- you can target CSS for specific screen widths, browsers and paths
-- you can style your pages differently depending on the application state, such as whether user is logged or not
+- use the latest CSS3 techniques and provide alternate CSS for IE and other old school browsers
+- safely use HTML5 tags even with IE
+- target CSS for specific screen widths, browsers and URLs
+- style your pages differently depending on the application state, such as whether user is logged or not
 
-HEAD script blocks so it must be small. This is the essence of Head JS. It weights 2.3 kb when minified and gzipped. It's preferred to load the file from a CDN. Google: I'm [staring at You](http://code.google.com/p/google-ajax-apis/issues/detail?id=548)! (please give it a star)
+Essentially Head JS adds CSS class names to the `<html>` element. If you attempt to do this in a script that is loaded with Head JS you can see a "Flash of Unstyled Content" (FOUC) effect: the page is first rendered without the to-be-loaded style definitions and then re-rendered when the scripts are executed. This is why the CSS feature detection is a core part of Head JS. 
 
-If you attempt to style the page on the scripts loaded with Head JS you can see a "Flash of Unstyled Content" (FOUC) effect: the page is first rendered without the to-be-loaded style definitions and then re-rendered when the scripts are executed.
+A script in HEAD blocks so it must be small. This is the essence of Head JS. It weights only 2.5 kb when minified and gzipped. It's preferred to load the file from a CDN. Google: I'm [staring at You](http://code.google.com/p/google-ajax-apis/issues/detail?id=548)! (please give it a star)
 
-Note: As crazy as it sounds FUBC and FOUC are not my acronyms.
+_Note: As crazy as it sounds FUBC and FOUC are not my acronyms._
 
 </section>
 
@@ -294,8 +295,8 @@ With `head.js()` call your page can be ready before your scripts. You need to pr
   the modifiable elements before your scripts make them visible and do their job.
   
 - `document.write()` statements are not supported since it's hard or impossible to know where to write to. 
-	It's an bad programming habit anyway so it's likely that Head JS will ever support this.
-  
+	It's a bad programming habit anyway so it's likely that Head JS will never support this.
+
 
 ### Enable caching
 
@@ -310,7 +311,7 @@ Internally Head JS uses browser's cache to preload scripts before they are execu
 
 ## Script organization
 
-Call a function after all scripts have been loaded 
+Call a function after all scripts have been loaded *and* the document is scriptable 
 
 {% syntax js %}
 head.ready(function() {
@@ -334,7 +335,7 @@ Otherwise you simply use `head.ready()` which gets executed after all files are 
 // a handy shortcut for head.ready()
 head(function() {
    
-})
+});
 {% endsyntax %}
 
 ## Labeling scripts
@@ -379,7 +380,7 @@ head.js("file1.js", function() {
 
 ## CSS3 feature detection
 
-When a particular feature is supported a corresponding class name is added to the <html> element. 
+When a particular feature is supported a corresponding class name is added to the `<html>` element. 
 When a feature is not supported the class name is prefixed with <code>no-</code>. For example:
 
 {% syntax css %}
@@ -402,13 +403,15 @@ Natively detected CSS3 properties
 - [borderimage](http://www.css3.info/preview/border-image/) define an image to be used instead of the normal border of an element
 - [borderradius](http://www.css3.info/preview/border-radius/) support for rounded borders
 - [boxshadow](http://www.css3.info/preview/box-shadow/) a simple shadow for a box
+- [cssreflections](http://webkit.org/blog/182/css-reflections/) a reflection effect for an object
+- [csstransforms](rotate or skew boxes) ability to scale
+- [csstransitions](https://developer.mozilla.org/en/CSS/CSS_transitions) ability to animate changes to CSS properties
+- [fontface](http://code.google.com/webfonts) ability to use custom fonts
 - [multiplebgs](http://www.css3.info/preview/multiple-backgrounds/) ability to define multiple background properties for a box
 - [opacity](http://www.css3.info/preview/opacity/) transparency support
-- [reflections](http://webkit.org/blog/182/css-reflections/) a reflection effect for an object
 - [rgba](http://www.css3.info/preview/rgba/) allows to specify an opacity value for a color
 - [textshadow](http://www.css3.info/preview/text-shadow/) a simple shadow for a text
-- [transforms](rotate or skew boxes) ability to scale
-- [transitions](https://developer.mozilla.org/en/CSS/CSS_transitions) ability to animate changes to CSS properties
+
 
 You can detect more with `head.feature()` call. Here we detect HTML5 video support
 
@@ -589,7 +592,7 @@ Alternatively each file can be given as an object taking a form: `{ label: file_
 
 ### head.ready(callback)
 
-Executes the given callback after all JavaScript files have been loaded
+Executes the given callback after *all* JavaScript files have been loaded and the document is scriptable (DOM is ready). 
 
 ### head.ready(path_or_label, callback) 
 
@@ -598,6 +601,10 @@ Execute the callback immediately after the given file or label is loaded and exe
 ### head(callback), head(path_or_label, callback)
 
 A convenience shortcut for head.ready
+
+### head.ready("dom", callback)
+
+Executes the given callback when document is ready. This is identical to jQuery's [.ready()](http://api.jquery.com/ready/) method. "dom" is a reserved label and cannot be used as a label for your own scripts.
 
 ### head.feature(name, flag) 
 
@@ -630,12 +637,30 @@ List of configuration variables
 
 <section id="download">
 
-## Version 0.8
+## Version 0.9
 
-- [head.js](https://github.com/headjs/headjs/raw/master/dist/head.js) - source code
-- [head.min.js](https://github.com/headjs/headjs/raw/master/dist/head.min.js) - minified version
-- [head.load.min.js](https://github.com/headjs/headjs/raw/master/dist/head.load.min.js) - JavaScript loader only
 
+- [head.js](https://github.com/headjs/headjs/raw/v0.9/dist/head.js) - source code
+- [head.min.js](https://github.com/headjs/headjs/raw/v0.9/dist/head.min.js) - minified version
+- [head.load.min.js](https://github.com/headjs/headjs/raw/v0.9/dist/head.load.min.js) - JavaScript loader only
+- [Github Repository](https://github.com/headjs/headjs) - all sources 
+
+My (humble) goal is to have Head JS available on Google's CDN. This is only possible if you [give a star](http://code.google.com/p/google-ajax-apis/issues/detail?id=548).
+
+---
+
+### What's new in 0.9
+
+- The biggest and greatest feature is that `head.ready()` and `head()` calls now wait for the document object model (DOM) to be ready. So you can safely start scripting your page with those calls. No need to load an external library such as jQuery to support this. 
+
+- New API call 'head.ready("dom", callback) to know when DOM is ready. 
+
+- Detection of custom fonts with "fontface" and "no-fontface" CSS class names
+
+- Bug fixes. Full list of commits can be found [here](https://github.com/headjs/headjs/commits/master)
+
+
+This is the final release before the official 1.0. Please [report](https://github.com/headjs/headjs/issues) all issues you find. 
 
 ### Issues
 
@@ -645,7 +670,7 @@ There is no way to detect if script loading failed in IE. For that reason a feat
 
 Head JS is rapidly being adopted to large number of websites all the time. A quick [Twitter search](http://twitter.com/search?q=headjs) reveals that it's becoming a core client side development tool for many. For the same reason I also get a lot of feature requests. Right now the strategy is to keep Head JS as minimalistic as it is now. 
 
-Expect *not* to see extensive CSS3 testing, CSS loaders or more complex loading logics being developed. These can be build on _top_ of Head JS. A separate module or extension. If you have an idea pleace concider this first.
+Expect *not* to see extensive CSS3 feature detection, dynamic CSS loading or more complex JS loading developed. These can be build on _top_ of Head JS. A separate module or extension. If you have an idea pleace consider this first.
 </section>
 {% endblock %}
 
