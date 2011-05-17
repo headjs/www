@@ -6,6 +6,8 @@ template: hyde.ext.jinja2
 meta:
     twitter: http://twitter.com/headjs
     analytics: UA-20001309-1
+    version: 0.96
+    author: Tero Piirainen
 plugins:
     - hyde.ext.plugins.meta.MetaPlugin
     - hyde.ext.plugins.stylus.StylusPlugin
