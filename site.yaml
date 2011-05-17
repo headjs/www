@@ -1,0 +1,37 @@
+mode: development
+media_root: media
+deploy_root: ../headjs.github.com
+
+media_url: /media
+base_url: http://headjs.com/
+template: hyde.ext.jinja2
+meta:
+    extends: root.j2
+    twitter: http://twitter.com/headjs
+    analytics: UA-20001309-1
+plugins:
+    - hyde.ext.plugins.meta.MetaPlugin
+    - hyde.ext.plugins.folders.FlattenerPlugin
+    - hyde.ext.plugins.auto_extend.AutoExtendPlugin
+    - hyde.ext.plugins.less.LessCSSPlugin
+    - hyde.ext.plugins.blockdown.BlockdownPlugin
+    - hyde.ext.plugins.sorter.SorterPlugin
+less:
+    app: ~/local/bin/lessc
+sorter:
+    time:
+        attr:
+            - meta.cloud
+            - meta.time
+        reverse: True
+        filters:
+            source_file.kind: html
+            meta.listable: True
+flattener:
+    items:
+        -
+            source: tech
+            target: ''
+        -
+            source: crap
+            target: ''
