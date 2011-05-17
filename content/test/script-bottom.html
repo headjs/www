@@ -1,18 +1,21 @@
-{% extends "demo.django" %}
-{# :mode=django: #}
-
-{%hyde  
- title: SCRIPT SRC on bottom
-%}
+===
+title: SCRIPT SRC on bottom
+extends: demo.j2
+===
 
 {% block bottom %}
+
 <script src="https://github.com/DmitryBaranovskiy/raphael/raw/master/raphael.js"></script>
 <script src="https://github.com/jquery/jquery-ui/raw/master/jquery-1.4.4.js"></script>
 <script src="https://github.com/smith/scripty2/raw/master/lib/prototype.js"></script>
 <script src="https://github.com/headjs/www/raw/master/content/test/jquery-ui.js"></script>
 <script src="https://github.com/kosmas58/compass-jquery-plugin/raw/master/lib/jslint.js"></script>
+
 {% endblock %}
 
 {% block details %}
-There is not much difference whether the scripts are loaded on HEAD or on bottom. The key to high performance is to load without <em>blocking</em>.
+
+There is not much difference whether the scripts are loaded on HEAD or on
+bottom. The key to high performance is to load without <em>blocking</em>.
+
 {% endblock %}

@@ -1,0 +1,70 @@
+{% extends "root.j2" -%}
+
+{% block hero -%}
+
+<nav>
+{% for link in ["highlights", "theory", "usage", "api"] -%}
+<a href="#{{ link }}">{{ link }}</a>
+{%- endfor %}
+<a href="#download">download <strong> (v 0.9)</strong></a>
+</nav>
+
+<div id="hero">
+   <h1>HEAD<em>JS</em></h1>
+
+   <h2>The only script in your &lt;HEAD&gt;</h2>
+
+   <h3>A tiny script that speeds up, simplifies and modernizes your site</h3>
+
+    <p>
+    Load scripts like images. Use HTML5 and CSS3 safely. Target CSS for
+    different screens, paths, states and browsers. Make it the only script in
+    your HEAD. A concise solution to universal issues.
+    <a href="#theory">the theory &raquo;</a>
+    </p>
+
+</div>
+
+{%- endblock hero %}
+
+
+{% block content -%}
+
+<h1>Highlights</h1>
+<section id="highlights">
+    {% filter markdown|typogrify -%}
+    {% block highlights -%}{%- endblock %}
+    {%- endfilter %}
+</section>
+
+<h1>Theory</h1>
+<section id="theory">
+    {% filter markdown|typogrify -%}
+    {% block theory -%}{%- endblock %}
+    {%- endfilter %}
+</section>
+
+<h1>Usage</h1>
+<section id="usage">
+    {% filter markdown|typogrify -%}
+    {% block usage -%}{%- endblock %}
+    {%- endfilter %}
+</section>
+
+
+<h1>API</h1>
+<section id="api">
+    {% filter markdown|typogrify -%}
+    {% block api -%}{%- endblock %}
+    {%- endfilter %}
+</section>
+
+
+<h1>Download</h1>
+<section id="download">
+    {% filter markdown|typogrify -%}
+    {% block download -%}{%- endblock %}
+    {%- endfilter %}
+</section>
+
+{%- endblock %}
