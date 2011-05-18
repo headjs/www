@@ -46,9 +46,9 @@
     </footer>
 
     <script>
-    {% if analytics %}
+    {% if meta.analytics %}
         head.js("http://www.google-analytics.com/ga.js", function() {
-            var tracker = _gat._getTracker("{{analytics}}");
+            var tracker = _gat._getTracker("{{meta.analytics}}");
             tracker._trackPageview();
         });
     {% endif %}
