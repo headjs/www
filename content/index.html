@@ -663,11 +663,11 @@ executed
 
 A convenience shortcut for head.ready
 
-### head.ready("dom", callback)
+### head.ready(document, callback)
 
 Executes the given callback when document is ready. This is identical to
-jQuery's [.ready()](http://api.jquery.com/ready/) method. "dom" is a reserved
-label and cannot be used as a label for your own scripts.
+jQuery's [.ready()](http://api.jquery.com/ready/) method. `document` is
+a global variable representing the current document in a browser.
 
 ### head.feature(name, flag)
 
@@ -702,36 +702,19 @@ List of configuration variables
 
 ===download===
 
-## Version 0.9
+## Version {{meta.version}}
 
 
-- [head.js](https://github.com/headjs/headjs/raw/v0.9/dist/head.js) - source code
-- [head.min.js](https://github.com/headjs/headjs/raw/v0.9/dist/head.min.js) - minified version
-- [head.load.min.js](https://github.com/headjs/headjs/raw/v0.9/dist/head.load.min.js) - JavaScript loader only
+- [head.js](https://github.com/headjs/headjs/raw/v{{meta.version}}/dist/head.js) - source code
+- [head.min.js](https://github.com/headjs/headjs/raw/v{{meta.version}}/dist/head.min.js) - minified version
+- [head.load.min.js](https://github.com/headjs/headjs/raw/v{{meta.version}}/dist/head.load.min.js) - JavaScript loader only
 - [Github Repository](https://github.com/headjs/headjs) - all sources
+
+[Release notes](https://github.com/headjs/headjs/commits/master)
 
 My (humble) goal is to have Head JS available on Google's CDN. This is only possible if you [give a star](http://code.google.com/p/google-ajax-apis/issues/detail?id=548).
 
 ---
-
-### What's new in 0.9
-
--   The biggest and greatest feature is that `head.ready()` and `head()` calls
-    now wait for the document object model (DOM) to be ready. So you can
-    safely start scripting your page with those calls. No need to load an
-    external library such as jQuery to support this.
-
--   New API call 'head.ready("dom", callback) to know when DOM is ready.
-
--   Detection of custom fonts with "fontface" and "no-fontface" CSS class
-    names.
-
--   Bug fixes. Full list of commits can be found
-    [here](https://github.com/headjs/headjs/commits/master)
-
-
-This is the final release before the official 1.0. Please
-[report](https://github.com/headjs/headjs/issues) all issues you find.
 
 ### Issues
 
@@ -749,6 +732,6 @@ as minimalistic as it is now.
 
 Expect *not* to see extensive CSS3 feature detection, dynamic CSS loading or
 more complex JS loading developed. These can be build on _top_ of Head JS. A
-separate module or extension. If you have an idea pleace consider this first.
+separate module or extension. If you have an idea please consider this first.
 
 ===/download===
